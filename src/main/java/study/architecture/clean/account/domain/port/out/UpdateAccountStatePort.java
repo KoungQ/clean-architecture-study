@@ -1,4 +1,0 @@
-package study.architecture.clean.account.domain.port.out;
-
-public interface UpdateAccountStatePort {
-}
