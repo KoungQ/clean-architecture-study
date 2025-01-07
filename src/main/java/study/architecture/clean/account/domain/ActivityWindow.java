@@ -6,10 +6,19 @@ import study.architecture.clean.account.domain.Account.AccountId;
 import java.time.LocalDateTime;
 import java.util.*;
 
+/**
+ * A window of account activities.
+ */
 public class ActivityWindow {
 
+	/**
+	 * The list of account activities within this window.
+	 */
 	private List<Activity> activities;
 
+	/**
+	 * The timestamp of the first activity within this window.
+	 */
 	public LocalDateTime getStartTimestamp() {
 		return activities.stream()
 				.min(Comparator.comparing(Activity::getTimestamp))
@@ -17,6 +26,10 @@ public class ActivityWindow {
 				.getTimestamp();
 	}
 
+	/**
+	 * The timestamp of the last activity within this window.
+	 * @return
+	 */
 	public LocalDateTime getEndTimestamp() {
 		return activities.stream()
 				.max(Comparator.comparing(Activity::getTimestamp))
@@ -24,6 +37,9 @@ public class ActivityWindow {
 				.getTimestamp();
 	}
 
+	/**
+	 * Calculates the balance by summing up the values of all activities within this window.
+	 */
 	public Money calculateBalance(AccountId accountId) {
 		Money depositBalance = activities.stream()
 				.filter(a -> a.getTargetAccountId().equals(accountId))
